@@ -1,0 +1,31 @@
+#pragma once
+#include <string>
+#include <complex>
+#include <vector>
+
+class Calculator
+{
+	private:
+		std::vector<double> history;
+
+	public:
+		Calculator(); // Constructor
+
+		// Arithmetic Methods
+		double add(double a, double b);
+		double subtract(double a, double b);
+		double multiply(double a, double b);
+		double divide(double a, double b);
+		double square(double a);
+		std::complex<double> square_root(double a);
+		double logarithm(double a, double b);
+
+		// Display Methods
+		void display_complex_result(const std::complex<double>& result);
+
+		// History
+		void store_result(double result);
+		void display_history();
+		std::vector<double> get_history() const;
+};
+
