@@ -1,0 +1,169 @@
+#include "calculator.h"
+#include <iostream>
+#include <complex>
+#include <vector>
+
+// Constructor definition
+Calculator::Calculator() {}
+
+// Method definitions
+
+/*************************************************************************
+* @brief Adds two numbers.
+*
+* @param a First number
+* @param b Second number
+* @return The sum of the two numbers.
+**************************************************************************/
+double Calculator::add(double a, double b) {
+	return a + b;
+}
+
+/*************************************************************************
+* @brief Subtract two numbers.
+*
+* @param a First number
+* @param b Second number
+* @return The difference of the two numbers.
+**************************************************************************/
+double Calculator::subtract(double a, double b) {
+	return a - b;
+}
+
+/*************************************************************************
+* @brief Multiply two numbers.
+*
+* @param a First number
+* @param b Second number
+* @return The product of the two numbers.
+**************************************************************************/
+double Calculator::multiply(double a, double b) {
+	return a * b;
+}
+
+/*************************************************************************
+* @brief Divides two numbers.
+*
+* @param a First number
+* @param b Second number
+* @return The quotient of the two numbers.
+**************************************************************************/
+double Calculator::divide(double a, double b) {
+	return (b != 0) ? a / b : 0;
+}
+
+/*************************************************************************
+* @brief Square a number.
+*
+* @param a First number
+* @return The squared value of a number.
+**************************************************************************/
+double Calculator::square(double a) {
+	return a * a;
+}
+
+/*************************************************************************
+* @brief Square root of a number.
+*
+* @param a First number
+* @return The squared root value of a number.
+**************************************************************************/
+std::complex<double> Calculator::square_root(double a) {
+	return std::sqrt(std::complex<double>(a, 0));
+}
+
+/*************************************************************************
+* @brief Displays a complex number in a readable format.
+*
+* This function prints the real and imaginary parts of a complex number.
+* If the real part is zero and the imaginary part is 1 or -1, it will
+* display as "i" or "-i". If the real part is zero and the imaginary part
+* is non-zero, it will display as just the imaginary part (e.g., "2i").
+* If both parts are non-zero, it will display in the format "real +
+* imaginary*i".
+*
+* @param complex_num A complex number to be displayed.
+* @return None
+**************************************************************************/
+void Calculator::display_complex_result(const std::complex<double>& result) {
+    if (result.real() == 0) {
+        // Case: Only imaginary part
+        if (result.imag() == 1) {
+            std::cout << "Result: i\n";
+        }
+        else if (result.imag() == -1) {
+            std::cout << "Result: -i\n";
+        }
+        else if (result.imag() != 0) {
+            std::cout << "Result: " << result.imag() << "i\n";
+        }
+    }
+    else if (result.imag() == 0) {
+        // Case: Only real part
+        std::cout << "Result: " << result.real() << "\n";
+    }
+    else {
+        // Case: Both real and imaginary parts are non-zero
+        std::cout << "Result: " << result.real();
+
+        if (result.imag() > 0) {
+            std::cout << " + " << result.imag() << "i\n";
+        }
+        else {
+            std::cout << " - " << -result.imag() << "i\n";
+        }
+    }
+}
+
+/*************************************************************************
+* @brief Calculates the logarithm of a number with a specified base. 
+* 
+* @param a The number to take the logarithm of 
+* @param base The base of the logarithm 
+* @return The logarithm of a with the specified base 
+**************************************************************************/
+double Calculator::logarithm(double a, double base) {
+	if (a > 0 && base > 0 && base != 1) {
+		return log(a) / log(base);
+	}
+	else {
+		std::cerr << "Error: Invalid input for logarithm!\n";
+		return 0;
+	}
+}
+
+/*************************************************************************
+* @brief Stores the result in the history.
+*
+* @param result The result to be stored.
+* @return None
+**************************************************************************/
+void Calculator::store_result(double result) {
+    history.push_back(result);
+}
+
+/*************************************************************************
+* @brief Displays the history of results.
+*
+* @return None
+**************************************************************************/
+void Calculator::display_history() {
+    if (history.empty()) {
+        std::cout << "No calculations in history.\n";
+        return;
+    }
+
+    std::cout << "Calculation History:\n";
+    for (size_t i = 0; i < history.size(); ++i) {
+        std::cout << i + 1 << ": " << history[i] << "\n";
+    }
+}
+
+/*************************************************************************
+* @brief Returns the history of results.
+*
+* @return A copy of the history vector.
+**************************************************************************/
+std::vector<double> Calculator::get_history() const {
+    return history;
+}
