@@ -34,22 +34,22 @@ Instructions for using the software:
 
 To recreate the development environment, you need the following software and/or libraries with the specified versions:
 
-* First thing here
-*
-*
+* C++ compiler
 
 ## Useful Websites to Learn More
 
 I found these websites useful in developing this software:
 
-* [Website Title](Link)
-*
-*
+* [Learn C++](https://www.codecademy.com/learn/learn-c-plus-plus)
+* [C++ Functions](https://www.w3schools.com/cpp/cpp_functions.asp)
+* [C++ Data Structures and STL](https://www.w3schools.com/cpp/cpp_data_structures.asp)
+* [C++ OOP](https://www.w3schools.com/cpp/cpp_oop.asp)
+
 
 ## Future Work
 
 The following items I plan to fix, improve, and/or add to this project in the future:
 
-* [ ] First thing here
-* [ ]
-* [ ]
+* [ ] Incorporating some methods to calculate Trig functions.
+* [ ] Implement methods to calculate derivatives and integrals.
+  
