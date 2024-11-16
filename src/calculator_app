@@ -1,0 +1,153 @@
+// calculator_app.cpp
+
+#include "calculator_app.h"
+#include <iostream>
+
+/************************************************************
+* @brief Display menu options for the calculator.
+*************************************************************/
+std::string CalculatorApp::display_menu() {
+    return "\nOptions:\n"
+        "1. Add\n"
+        "2. Subtract\n"
+        "3. Multiply\n"
+        "4. Divide\n"
+        "5. Square\n"
+        "6. Square Root\n"
+        "7. Logarithm\n"
+        "8. View Calculation History\n"
+        "9. Quit\n";
+}
+
+/************************************************************
+* @brief Prompt user for a number input.
+*************************************************************/
+double CalculatorApp::get_single_input() {
+    double num;
+    std::cout << "Enter a number: ";
+    std::cin >> num;
+    return num;
+}
+
+/************************************************************
+* @brief Prompt user for two number inputs.
+*************************************************************/
+std::pair<double, double> CalculatorApp::get_two_inputs() {
+    double num1, num2;
+    std::cout << "Enter the first number: ";
+    std::cin >> num1;
+    std::cout << "Enter the second number: ";
+    std::cin >> num2;
+    return { num1, num2 };
+}
+
+/************************************************************
+* @brief performs the calculation that the user chooses.
+* 
+* @param calc The Calculator object that provides the methods
+* (add, subtract, multiply, divide, square, square_root,
+* logarithm) to perform the mathematical operations.
+* It is passed by reference to avoid copying and to allow
+* the use of the Calculator's functionality.
+* 
+* @param choice The selected operation, where each number corresponds
+* to a specific mathematical function (e.g., 1 for add, 2
+* for subtract, etc.).
+*************************************************************/
+void CalculatorApp::perform_operation(Calculator& calc, int choice) {
+    double result = 0.0;
+    std::complex<double> complex_result;
+
+    switch (choice) {
+    case 1: { // Add
+        auto inputs = get_two_inputs(); // Store in a pair
+        result = calc.add(inputs.first, inputs.second);
+        break;
+    }
+    case 2: { // Subtract
+        auto inputs = get_two_inputs();
+        result = calc.subtract(inputs.first, inputs.second);
+        break;
+    }
+    case 3: { // Multiply
+        auto inputs = get_two_inputs();
+        result = calc.multiply(inputs.first, inputs.second);
+        break;
+    }
+    case 4: { // Divide
+        auto inputs = get_two_inputs();
+        result = calc.divide(inputs.first, inputs.second);
+        break;
+    }
+    case 5: { // Square
+        double num = get_single_input();
+        result = calc.square(num);
+        break;
+    }
+    case 6: { // Square Root
+        double num = get_single_input();
+        complex_result = calc.square_root(num);
+        calc.display_complex_result(complex_result);
+        return;
+    }
+    case 7: { // Logarithm
+        auto inputs = get_two_inputs();
+        result = calc.logarithm(inputs.first, inputs.second);
+        break;
+    }
+    case 8: { // View History
+        calc.display_history();
+        break; 
+    }
+    default:
+        std::cout << "Invalid option.\n";
+        return;
+    }
+
+    std::cout << "Result: " << result << "\n";
+
+    // Store the result in history.
+    calc.store_result(result);
+}
+
+
+/************************************************************
+* @brief Process user's choice by displaying options,
+* getting input, and performing the chosen operation.
+* 
+* @param calc The Calculator object that provides the methods
+* (add, subtract, multiply, divide, square, square_root,
+* logarithm) to perform the mathematical operations.
+* It is passed by reference to avoid copying and to allow
+* the use of the Calculator's functionality.
+*************************************************************/
+int CalculatorApp::process_choice(Calculator& calc) {
+    int choice;
+    std::cout << display_menu();
+    std::cout << "Select an option: ";
+    std::cin >> choice;
+
+    if (choice == 9) {
+        std::cout << "Goodbye!\n";
+        return choice;
+    }
+    else if (choice < 1 || choice > 9) {
+        std::cout << "Invalid option. Please try again.\n";
+        return choice;
+    }
+
+    perform_operation(calc, choice);
+    return choice;
+}
+
+/************************************************************
+* @brief Runs the app by displaying the menu and taking in
+* inputs from the user.
+*************************************************************/
+void CalculatorApp::run() {
+    Calculator calc; 
+    int choice = 0;
+    do {
+        choice = process_choice(calc);
+    } while (choice != 9);
+}
