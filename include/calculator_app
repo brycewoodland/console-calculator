@@ -1,0 +1,23 @@
+#pragma once
+
+#include "calculator.h"      
+#include <iostream> 
+
+// For std::pair (used for two inputs)
+#include <utility>  
+
+// For std::complex (if needed for results)
+#include <complex>            
+
+class CalculatorApp
+{
+public:
+    void run(); 
+
+private:
+    std::string display_menu(); 
+    double get_single_input();       
+    std::pair<double, double> get_two_inputs(); 
+    void perform_operation(Calculator& calc, int choice); 
+    int process_choice(Calculator& calc);  
+};
